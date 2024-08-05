@@ -47,7 +47,7 @@ class FiltrationII(override val level: Int) : Filtration() {
         }
         val gabeCount = ceil(rawCount * gabeShayRatio).toInt()
         val shayCount = rawCount - gabeCount +
-                if (extraShay) rawCount * 2 else 0 // extraShay = gabeCount * 2
+                if (extraShay) gabeCount * 2 else 0 // extraShay = gabeCount * 2
         return material.filterNot { it is GabeInerI }.toMutableSet().apply {
             add(GabeInerII(gabeCount))
             add(ShayIner.init(ShayIner.count + shayCount))
