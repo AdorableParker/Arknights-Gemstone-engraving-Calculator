@@ -1,5 +1,5 @@
-import iner.*
 import craft.Craft
+import iner.*
 
 class Solver(
     private var nesre: Int,
@@ -38,6 +38,7 @@ class Solver(
     init {
         InerSet.resetState(
             arrayOf(NesreIner(nesre), GabeIner(gabe), PetIner(pet), ShayIner.init(shay)),
+            processStepsMax,
             this.crafts.toTypedArray(),
             arrayOf()
         )
@@ -68,6 +69,7 @@ class Solver(
 
                 InerSet.resetState(
                     arrayOf(NesreIner(nesre), GabeIner(gabe), PetIner(pet), ShayIner.init(shay)),
+                    processStepsMax,
                     craftArea.toTypedArray(),
                     list.toTypedArray()
                 )
@@ -78,8 +80,7 @@ class Solver(
 //                }
 
                 val totalValue = InerSet.appraisal(progressValue >= progressMaxValue)
-//                println(list.joinToString(",", "[", "]") { "${it.name}-${it.level}" })
-//                println(totalValue)
+
                 if (totalValue > value || totalValue == value && list.size < console.size) {
                     console = list.toTypedArray()
                     println("$totalValue > $value 更新最优解")
@@ -102,9 +103,9 @@ class Solver(
         println("======")
     }
 
-    fun optimalProcess(): Triple<Array<Iner>, Array<Craft>, Array<Craft>> {
-        return Triple(
-            arrayOf(NesreIner(nesre), GabeIner(gabe), PetIner(pet), ShayIner.init(shay)),
+    fun optimalProcess(): Quad<Array<Iner>, Int, Array<Craft>, Array<Craft>> {
+        return Quad(
+            arrayOf(NesreIner(nesre), GabeIner(gabe), PetIner(pet), ShayIner.init(shay)), processStepsMax,
             crafts.filter { it !in console }.toTypedArray(),
             console
         )

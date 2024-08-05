@@ -26,6 +26,7 @@ object InerSet {
 
     /** 操作台 */
     private val craftConsole: Array<Craft?> = Array(6) { null }
+    private var stationsAvailableNum: Int = 2
 
     /** 设置操作台 */
     private fun setCraftConsole(vararg crafts: Craft) {
@@ -40,7 +41,7 @@ object InerSet {
 
     val outProductInfo by lazy { createNextFunction() }
     private fun createNextFunction(): (Set<Iner>) -> Unit {
-        val lastResult = material.associateBy({ it.name }, { it.count })
+//        val lastResult = material.associateBy({ it.name }, { it.count })
 
         return { newValue ->
             newValue.filter {
@@ -64,7 +65,11 @@ object InerSet {
         for (iner in inerList) {
             sumValue += iner.count * iner.value
 
-            if (iner.emptyWorkbenchReward != 0) sumValue += craftConsole.filter { it == null }.size * iner.emptyWorkbenchReward
+            if (iner.emptyWorkbenchRewardValue != 0) {
+                val i = iner.emptyWorkbenchRewardValue *
+                        (stationsAvailableNum - craftConsole.filter { it != null }.size)
+                sumValue += i
+            }
             if (iner.dopingFlag) dopingFlag = true
         }
 
@@ -73,13 +78,20 @@ object InerSet {
         return sumValue + 100 * (inerList.find { it is PetInerIII }?.count ?: 0)
     }
 
-    fun resetState(materialArray: Array<Iner>, craftAreaArray: Array<Craft>, craftConsoleArray: Array<Craft>) {
+    fun resetState(
+        materialArray: Array<Iner>,
+        stationsAvailableNum: Int,
+        craftAreaArray: Array<Craft>,
+        craftConsoleArray: Array<Craft>,
+    ) {
+        // 清空旧值
         material.clear()
         craftArea.clear()
         craftConsole.fill(null)
-
         PetIner.extraPrints = 0
         ShayIner.resetState()
+        // 设置新值
+        this.stationsAvailableNum = stationsAvailableNum
         setMaterial(*materialArray)
         setCraftArea(*craftAreaArray)
         setCraftConsole(*craftConsoleArray)
