@@ -94,13 +94,13 @@ object InerSet {
         }
 
         for (craft in craftArea) {
-            cache = craft?.craft(cache, outInfo)?.also {
-                if (outInfo) outProductInfo(cache)
-            } ?: cache
+            cache = craft?.craft(cache, outInfo)?.also { if (outInfo) outProductInfo(cache) } ?: cache
         }     // 检查工艺台
         for (craft in craftConsole) {
-            craft?.let { cache = it.build(cache, outInfo) }
-            if (outInfo) outProductInfo(cache)
+            craft?.let {
+                cache = it.build(cache, outInfo)
+                if (outInfo) outProductInfo(cache)
+            }
         }  // 执行操作台
         return cache.filterNot { it.count == 0 }.toMutableSet()             // 处理空元素
     }

@@ -33,6 +33,18 @@ class Solver(
     private val processAvailabilityStatus = Array(crafts.size) { true }
     private var progressValue = 0
     private val progressMaxValue = setProgressMaxValue()
+
+    // 初始化分数
+    init {
+        InerSet.resetState(
+            arrayOf(NesreIner(nesre), GabeIner(gabe), PetIner(pet), ShayIner.init(shay)),
+            this.crafts.toTypedArray(),
+            arrayOf()
+        )
+        value = InerSet.appraisal(progressValue >= progressMaxValue)
+        println(value)
+    }
+
     private fun setProgressMaxValue(): Int {
         val (n, m) = if (crafts.size <= processStepsMax) crafts.size to crafts.size else crafts.size to processStepsMax
         return (0..m).reduce { sum, k ->
@@ -44,6 +56,7 @@ class Solver(
         if (list.size >= processStepsMax) {
             return
         }
+
         println("进度: $progressValue / $progressMaxValue")
         crafts.forEachIndexed { index, n ->
 
@@ -58,18 +71,19 @@ class Solver(
                     craftArea.toTypedArray(),
                     list.toTypedArray()
                 )
-                if (progressValue >= progressMaxValue) {
-                    println(craftArea.joinToString(",", "[", "]") { "${it.name}${it.level}" })
-                    println(list.joinToString(",", "[", "]") { "${it.name}${it.level}" })
-                    println(console.joinToString(",", "[", "]") { "${it.name}${it.level}" })
-                }
+//                if (progressValue >= progressMaxValue) {
+//                    println(craftArea.joinToString(",", "[", "]") { "${it.name}${it.level}" })
+//                    println(list.joinToString(",", "[", "]") { "${it.name}${it.level}" })
+//                    println(console.joinToString(",", "[", "]") { "${it.name}${it.level}" })
+//                }
 
                 val totalValue = InerSet.appraisal(progressValue >= progressMaxValue)
+//                println(list.joinToString(",", "[", "]") { "${it.name}-${it.level}" })
 //                println(totalValue)
-                if (totalValue > value && list.size < console.size) {
+                if (totalValue > value || totalValue == value && list.size < console.size) {
                     console = list.toTypedArray()
+                    println("$totalValue > $value 更新最优解")
                     value = totalValue
-                    println("更新最优解")
                     outputTheOptimalProcess()
                 } // 记录最优解
 
@@ -82,8 +96,8 @@ class Solver(
     }
 
     fun outputTheOptimalProcess() {
-        println(console.joinToString(",", "[", "]") { "${it.name}${it.level}" })
         println(crafts.filter { it !in console }.toTypedArray().joinToString(",", "[", "]") { "${it.name}${it.level}" })
+        println(console.joinToString(",", "[", "]") { "${it.name}${it.level}" })
         println("预期分数：${value}")
         println("======")
     }
