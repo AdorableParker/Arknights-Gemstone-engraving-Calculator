@@ -27,10 +27,10 @@ class NesreInerIII(count: Int) : Iner(count) {
 /** 火焰伊纳IV */
 class NesreInerIV(count: Int) : Iner(count) {
     override val name: String = "火焰伊纳IV"
-    override var emptyWorkbenchReward: Int = 0
+    override var emptyWorkbenchRewardValue: Int = 0
 
     constructor(count: Int, extra: Int) : this(count) {
-        emptyWorkbenchReward = extra
+        emptyWorkbenchRewardValue = extra
     }
 
     override val value: Int = 85
