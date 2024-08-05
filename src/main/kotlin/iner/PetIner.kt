@@ -1,4 +1,4 @@
-package org.example.iner
+package iner
 
 /** 天空伊纳 */
 open class PetIner(count: Int) : Iner(count) {

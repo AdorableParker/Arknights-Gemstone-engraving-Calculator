@@ -1,8 +1,8 @@
-import org.example.craft.Craft
-import org.example.iner.Iner
-import org.example.iner.PetIner
-import org.example.iner.PetInerIII
-import org.example.iner.ShayIner
+import craft.Craft
+import iner.Iner
+import iner.PetIner
+import iner.PetInerIII
+import iner.ShayIner
 
 object InerSet {
 

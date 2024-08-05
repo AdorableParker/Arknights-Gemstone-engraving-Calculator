@@ -1,4 +1,4 @@
-package org.example.iner
+package iner
 
 /** 火焰伊纳 */
 class NesreIner(count: Int) : Iner(count) {

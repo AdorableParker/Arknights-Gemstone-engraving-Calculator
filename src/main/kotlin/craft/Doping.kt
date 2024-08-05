@@ -1,7 +1,7 @@
-package org.example.craft
+package craft
 
-import org.example.iner.*
-import org.example.tools.Tools
+import iner.*
+import tools.Tools
 import kotlin.math.ceil
 
 abstract class Doping : Craft() {

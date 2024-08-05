@@ -1,4 +1,4 @@
-package org.example.iner
+package iner
 
 /**
  * 宝石类

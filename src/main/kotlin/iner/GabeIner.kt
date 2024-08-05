@@ -1,4 +1,4 @@
-package org.example.iner
+package iner
 
 /** 草叶伊纳*/
 class GabeIner(count: Int) : Iner(count) {

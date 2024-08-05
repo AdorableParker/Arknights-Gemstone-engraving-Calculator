@@ -1,4 +1,4 @@
-package org.example.iner
+package iner
 
 /** 沙伊纳 */
 object ShayIner : Iner(0) {

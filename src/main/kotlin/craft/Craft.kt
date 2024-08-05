@@ -1,6 +1,6 @@
-package org.example.craft
+package craft
 
-import org.example.iner.Iner
+import iner.Iner
 
 /**
  * 工艺类

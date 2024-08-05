@@ -1,8 +1,8 @@
-package org.example.craft
+package craft
 
-import org.example.iner.Iner
-import org.example.iner.ShayIner
-import org.example.tools.Tools
+import iner.Iner
+import iner.ShayIner
+import tools.Tools
 
 
 abstract class Deposition : Craft() {

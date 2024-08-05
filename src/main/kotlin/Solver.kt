@@ -1,5 +1,5 @@
-import org.example.craft.Craft
-import org.example.iner.*
+import iner.*
+import craft.Craft
 
 class Solver(
     private var nesre: Int,
@@ -66,8 +66,7 @@ class Solver(
 
                 val totalValue = InerSet.appraisal(progressValue >= progressMaxValue)
 //                println(totalValue)
-                if (totalValue > value) {
-                    println("debug")
+                if (totalValue > value && list.size < console.size) {
                     console = list.toTypedArray()
                     value = totalValue
                     println("更新最优解")
